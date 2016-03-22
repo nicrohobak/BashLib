@@ -1,0 +1,80 @@
+==============================================================================
+| BashLib -- A Bash Scripting Library					     |
+==============================================================================
+
+Overview
+------------------------------------------------------------------------------
+
+    Functions
+    ---------
+	- GetAbsolutePath		- Gets the absolute path of a file
+	- GetOSVersion			- Gets the current OS version
+
+	Apache				- Functions related to Apache
+	------
+	    - GetApacheVersion		- Gets the current Apache version
+
+	Input				- Functions related to user input
+	-----
+	    - Confirm			- Prompt the user with a (y/n)?
+					  confirmation question.  Doesn't
+					  continue until answered.
+	    - ConfirmN			- Like Confirm, but (y/N)?
+	    - ConfirmY			- Like Confirm, but (Y/n)?
+	    - Select			- Presents a list of options to the
+					  user and requests a selection
+
+	Installer			- Functions that help with file
+	---------			  management
+	    - InstallFiles		- Copies the contents of a
+					  directory to another target,
+					  moving anything that might already
+					  exist into a cache
+	    - UninstallFiles		- Removes the contents of a
+					  directory from another target,
+					  also by moving to a cache
+	    - MoveToCache		- Moves a file/directory to the
+					  specified cache location
+	    - RestoreFromCache		- Moves a file/directory from the
+					  cache back into the restore
+					  location
+	    - VerifyFiles		- Verifies that all of the files in
+					  the source also exist in the
+					  destination
+
+	ls				- Functions that assist with ls
+	--
+	    - lsPermToChmodStr		- Converts ls permission string into
+					  the equivalent string argument for
+					  chmod
+	    - lsPermToOctStr		- Converts ls permission string into
+					  the equivalent octal argument for
+					  chmod
+	    - _lsPermTriadToNum		- Converts ls permission string triad
+					  into its octal equivalent
+
+	Output				- Functions related to displaying
+	------				  output
+	    - Error			- Prints a message to stderr
+	    - Fatal			- Prints a message to stderr and
+					  exits the script with status 1
+	    - Print			- Prints a message to stdout (echo)
+	    - Warn			- Prints a message to stderr
+
+	String				- Functions for string manipulation
+	------
+	    - StrToLower		- Converts a string to lowercase
+
+
+Installation
+------------------------------------------------------------------------------
+
+    - Copy this directory (or create a symlink) to /usr/local/share/BashLib
+
+    - In your script:  source /usr/local/share/BashLib/BashLib.sh
+
+
+
+==============================================================================
+
+
