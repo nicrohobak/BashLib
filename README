@@ -71,7 +71,22 @@ Installation
 
     - Copy this directory (or create a symlink) to /usr/local/share/BashLib
 
-    - In your script:  source /usr/local/share/BashLib/BashLib.sh
+    - Add this snippet to the top of your script:
+
+        ######################################################################
+        # Include BashLib
+        ######################################################################
+
+        BASH_LIB="/usr/local/share/BashLib"
+
+        if [ -e "${BASH_LIB}/BashLib.sh" ]; then
+            source "${BASH_LIB}/BashLib.sh"
+        else
+            echo "Error: BashLib not found (${BASH_LIB})"
+            exit 1
+        fi
+
+        ######################################################################
 
 
 
