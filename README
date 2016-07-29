@@ -60,6 +60,10 @@ Overview
 					  exits the script with status 1
 	    - Print			- Prints a message to stdout (echo)
 	    - Warn			- Prints a message to stderr
+            - Log                       - Prints a timestamped message to
+                                          stdout
+            - ErrLog                    - Prints a timestamped message to
+                                          stderr
 
 	String				- Functions for string manipulation
 	------
