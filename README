@@ -2,7 +2,32 @@
 | BashLib -- A Bash Scripting Library					     |
 ==============================================================================
 
-Overview
+------------------------------------------------------------------------------
+ Installation
+------------------------------------------------------------------------------
+
+    - Copy this directory (or create a symlink) to /usr/local/share/BashLib
+
+    - Add this snippet to the top of your script:
+
+        ######################################################################
+        # Include BashLib
+        ######################################################################
+
+        BASH_LIB="/usr/local/share/BashLib"
+
+        if [ -e "${BASH_LIB}/BashLib.sh" ]; then
+            source "${BASH_LIB}/BashLib.sh"
+        else
+            echo "Error: BashLib not found (${BASH_LIB})"
+            exit 1
+        fi
+
+        ######################################################################
+
+
+------------------------------------------------------------------------------
+ Overview
 ------------------------------------------------------------------------------
 
     Functions
@@ -14,6 +39,11 @@ Overview
 	------
 	    - GetApacheVersion		- Gets the current Apache version
 
+        Builtin
+        -------
+            - Glob                      - (on|off) Enables/disables globbing
+            - RestoreIFS                - Resets IFS to default: " \n\t"
+            - SetIFS                    - Sets new IFS value
 	Input				- Functions related to user input
 	-----
 	    - Confirm			- Prompt the user with a (y/n)?
@@ -60,39 +90,15 @@ Overview
 					  exits the script with status 1
 	    - Print			- Prints a message to stdout (echo)
 	    - Warn			- Prints a message to stderr
-            - Log                       - Prints a timestamped message to
-                                          stdout
-            - ErrLog                    - Prints a timestamped message to
-                                          stderr
+	    - Log			- Prints a timestamped message to
+					  stdout
+	    - ErrLog			- Prints a timestamped message to
+					  stderr
 
 	String				- Functions for string manipulation
 	------
+	    - Append			- Appends new content to a variable
 	    - StrToLower		- Converts a string to lowercase
-
-
-Installation
-------------------------------------------------------------------------------
-
-    - Copy this directory (or create a symlink) to /usr/local/share/BashLib
-
-    - Add this snippet to the top of your script:
-
-        ######################################################################
-        # Include BashLib
-        ######################################################################
-
-        BASH_LIB="/usr/local/share/BashLib"
-
-        if [ -e "${BASH_LIB}/BashLib.sh" ]; then
-            source "${BASH_LIB}/BashLib.sh"
-        else
-            echo "Error: BashLib not found (${BASH_LIB})"
-            exit 1
-        fi
-
-        ######################################################################
-
-
 
 ==============================================================================
 
