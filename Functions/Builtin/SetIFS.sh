@@ -11,7 +11,7 @@
 # Output:	(None)
 function SetIFS
 {
-	IFS=$( printf "$1" )
+	printf -v IFS "$1"
 	return 0
 }
 
