@@ -44,6 +44,7 @@
             - Glob                      - (on|off) Enables/disables globbing
             - RestoreIFS                - Resets IFS to default: " \n\t"
             - SetIFS                    - Sets new IFS value
+
 	Input				- Functions related to user input
 	-----
 	    - Confirm			- Prompt the user with a (y/n)?
@@ -98,6 +99,8 @@
 	String				- Functions for string manipulation
 	------
 	    - Append			- Appends new content to a variable
+            - EatWhite                  - Removes all leading/trailing
+                                          whitespace characters
 	    - StrToLower		- Converts a string to lowercase
 
 ==============================================================================
