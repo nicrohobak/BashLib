@@ -104,6 +104,8 @@
 	    - Append			- Appends new content to a variable
             - EatWhite                  - Removes all leading/trailing
                                           whitespace characters
+            - EscapeSpecialChars        - Adds backslash 'escapes' to special
+                                          Bash characters
 	    - StrToLower		- Converts a string to lowercase
 
 ==============================================================================
