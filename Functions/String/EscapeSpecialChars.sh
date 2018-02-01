@@ -11,9 +11,14 @@
 BASHLIB_ESCAPE_CHAR_LIST=""
 
 
+# An additional global to explictly ignore (not escape) specific special
+# characters.
+BASHLIB_ESCAPE_IGNORE_LIST=""
+
+
 # Function:	EscapeSpecialChars -- Backslash escapes special characters for use
-#                                 in double-quoted strings (but, does NOT
-#                                 attempt to handle exclaimation points!)
+#                                 in non-quoted strings (but, does NOT
+#                                 attempt to handle exclamation points!)
 # Params:	$* - The string
 # Output:	String (The escaped version of the string)
 function EscapeSpecialChars
@@ -24,7 +29,7 @@ function EscapeSpecialChars
 	fi
 
 	if [ "${BASHLIB_ESCAPE_CHAR_LIST}" = "" ]; then
-		# The exclaimation point is specially tricky and is thus not handled here...
+		# The exclamation point is specially tricky and is thus not handled here...
 		# (The problem usually gets parsed out by the time this function is invoked.)
 		local SPECIAL_CHAR_LIST='@#$%^&*()_+[]{}|<>,.\/;:`'
 
@@ -49,6 +54,20 @@ function EscapeSpecialChars
 		local CUR_CHAR="${ORIG_STR:${i}:1}"
 
 		local FOUND_SPECIAL="false"
+		for (( s = 0; s < ${#BASHLIB_ESCAPE_IGNORE_LIST}; ++s )); do
+			local CUR_SPECIAL="${BASHLIB_ESCAPE_IGNORE_LIST:${s}:1}"
+
+			if [ "${CUR_CHAR}" = "${CUR_SPECIAL}" ]; then
+				FOUND_SPECIAL="true"
+				break
+			fi
+		done
+
+		if [ "${FOUND_SPECIAL}" = "true" ]; then
+			NEW_STR="${NEW_STR}${CUR_CHAR}"
+			continue
+		fi
+
 		for (( s = 0; s < ${#BASHLIB_ESCAPE_CHAR_LIST}; ++s )); do
 			local CUR_SPECIAL="${BASHLIB_ESCAPE_CHAR_LIST:${s}:1}"
 
