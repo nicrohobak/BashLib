@@ -31,10 +31,7 @@ function EscapeStringChars
 		for (( s = 0; s < ${#SPECIAL_CHAR_LIST}; ++s )); do
 			local CUR_SPECIAL="${SPECIAL_CHAR_LIST:${s}:1}"
 
-			echo "CUR_CHAR:    ${CUR_CHAR}"
-			echo "CUR_SPECIAL: ${CUR_SPECIAL}"
 			if [ "${CUR_CHAR}" = "${CUR_SPECIAL}" ]; then
-				echo "Found!"
 				NEW_STR="${NEW_STR}"'\'"${CUR_SPECIAL}"
 				FOUND_SPECIAL="true"
 				break
