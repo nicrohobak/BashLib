@@ -106,6 +106,8 @@
                                           whitespace characters
             - EscapeSpecialChars        - Adds backslash 'escapes' to special
                                           Bash characters
+            - EscapeStringChars         - Escapes characters for double-quote
+                                          strings
 	    - StrToLower		- Converts a string to lowercase
 
 ==============================================================================
