@@ -6,7 +6,8 @@
 
 
 # Function: EscapeStringChars -- Backslash escapes special characters for use
-#                                in double-quoted strings
+#                                in double-quoted strings (but, does NOT
+#                                attempt to handle exclamation points!)
 # Params:   $* - The string
 # Output:   String (The escaped version of the string)
 function EscapeStringChars
@@ -24,7 +25,7 @@ function EscapeStringChars
 		local CUR_CHAR="${ORIG_STR:${i}:1}"
 
 		case "${CUR_CHAR}" in
-			'!'|'$'|'`'|'"')
+			'$'|'`'|'"')
 				if [ "${PREV_CHAR}" = '\' ]; then
 					NEW_STR="${NEW_STR}${CUR_CHAR}"
 				else
