@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #
-# FindPackageManagers
+# FindPackageManager
 #
 
 
 # Function:	FindPackageManagers - Attempts to locate the package manager
 # Params:	(None)
 # Output:	(None)
-function FindPackageManagers
+function FindPackageManager
 {
 	local SUPPORTED_PKG_MGRS="aptitude apt-get yum"
 	local PKG_MGR=""

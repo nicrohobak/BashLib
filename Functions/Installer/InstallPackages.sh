@@ -19,7 +19,7 @@ function InstallPackages
 	# Find the package manager first
 	local PKG_MGR="$( FindPackageManager )"
 
-	if [ "$(echo "${PKG_MGR}" | grep "Failed to find")" != "" ]; then
+	if [ "${PKG_MGR}" = "" ] || [ "$(echo "${PKG_MGR}" | grep "Failed to find")" != "" ]; then
 		Error "InstallPackage: ${PKG_MGR}"
 		return 1
 	fi
