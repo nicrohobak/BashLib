@@ -10,7 +10,13 @@
 # Output:	String (a lowercase version of the input)
 function StrToLower
 {
+	if [ "${1}" = "" ]; then
+		Error "StrToLower: No input provided."
+		return 1
+	fi
+
 	echo $* | tr '[:upper:]' '[:lower:]'
+	return 0
 }
 
 
