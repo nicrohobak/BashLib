@@ -8,10 +8,10 @@
 
     - Copy this directory (or create a symlink) to /usr/local/share/BashLib
 
-    - Add this snippet to the top of your script:
+    - Add one of these simple snippets to the top of your script:
 
         ######################################################################
-        # Include BashLib
+        # Include BashLib (basic)
         ######################################################################
 
         BASH_LIB="/usr/local/share/BashLib"
@@ -19,10 +19,119 @@
         if [ -e "${BASH_LIB}/BashLib.sh" ]; then
             source "${BASH_LIB}/BashLib.sh"
         else
-            echo "Error: BashLib not found (${BASH_LIB})"
+            echo "Error: BashLib not found (${BASH_LIB})" 1>&2
             exit 1
         fi
 
+        ######################################################################
+        ######################################################################
+
+
+        ######################################################################
+        # Include BashLib (attempt auto-install if missing)
+        ######################################################################
+
+        BASH_LIB="/usr/local/share/BashLib"
+
+        if [ -e "${BASH_LIB}/BashLib.sh" ]; then
+            source "${BASH_LIB}/BashLib.sh"
+        else
+            echo "Error: BashLib not found (${BASH_LIB})" 1>&2
+
+            function BashLib_AttemptInstall
+            {   
+                local BASH_LIB_REPO="https://github.com/nicrohobak/BashLib"
+
+                # Git is preferred...
+                if [ "$(which git)" != "" ]; then
+                    echo "Detected 'git'.  Cloning repository into '${BASH_LIB}' now..."
+                    git clone "${BASH_LIB_REPO}" "${BASH_LIB}"
+
+                    if [ "${?}" != "0" ]; then
+                        echo "Error: Failed to 'git clone \"${BASH_LIB_REPO}\" \"${BASH_LIB}\"'."
+                        return 1
+                    fi
+                else
+                    # ...but we can still make an attempt without it
+                    echo "Failed to detect 'git'.  Attempting an alternative download method."
+
+                    # Quick, basic dependency checking
+                    if [ "$(which wget)" = "" ]; then
+                        echo "Error: Please install 'wget' and try this installation again." 1>&2
+                        return 1
+                    fi
+
+                    if [ "$(which unzip)" = "" ]; then
+                        echo "Error: Please install 'unzip' and try this installation again." 1>&2
+                        return 1
+                    fi
+
+                    local BASH_LIB_ZIP="${BASH_LIB_REPO}/archive/master.zip"
+                    local BASH_LIB_LOCAL_ZIP="BashLib.zip"
+                    local BASH_LIB_LOCAL_DIR="BashLib-master"
+                    wget "${BASH_LIB_ZIP}" -O "${BASH_LIB_LOCAL_ZIP}" &> /dev/null
+
+                    if [ "${?}" != "0" ]; then
+                        echo "Error: Failed to download '${BASH_LIB_ZIP}' (as '${BASH_LIB_LOCAL_ZIP}')." 1>&2
+                        return 1
+                    fi
+
+                    # The result of this should be a directory called 'BashLib-master' (${BASH_LIB_LOCAL_DIR})
+                    unzip "${BASH_LIB_LOCAL_ZIP}"
+
+                    if [ "${?}" != "0" ]; then
+                        # Cleanup what we can
+                        rm "${BASH_LIB_LOCAL_ZIP}"
+                        echo "Error: Failed to unzip '${BASH_LIB_ZIP}'." 1>&2
+                        return 1
+                    fi
+
+                    # Move the resulting directory into the final location
+                    mv "${BASH_LIB_LOCAL_DIR}" "${BASH_LIB}"
+
+                    if [ "${?}" != "0" ]; then
+                        # Cleanup what we can
+                        rm "${BASH_LIB_LOCAL_ZIP}"
+                        rm -r "${BASH_LIB_LOCAL_DIR}"
+                        echo "Error: Failed to move '${BASH_LIB_LOCAL_DIR}' to '${BASH_LIB}'." 1>&2
+                        return 1
+                    fi
+
+                    echo "BashLib was successfully installed at '${BASH_LIB}'."
+
+                    # Cleanup
+                    rm "${BASH_LIB_LOCAL_ZIP}"
+                fi
+
+                return 0
+            }
+
+            function BashLib_AskToInstall
+            {   
+                local ATTEMPT_INSTALL
+                read -p "Would you like me to attempt to install BashLib for you? (y/N): " ATTEMPT_INSTALL
+
+                case "${ATTEMPT_INSTALL}" in
+                    y|Y)
+                        BashLib_AttemptInstall || exit 1
+                        ;;
+                    *)
+                        echo "Error: No suitable version of BashLib found.  Exiting." 1>&2
+                        exit 1
+                        ;;
+                esac
+
+                return 0
+            }
+
+            BashLib_AskToInstall
+
+            # Cleanup
+            unset BashLib_AskToInstall
+            unset BashLib_Install
+        fi
+
+        ######################################################################
         ######################################################################
 
 
@@ -34,6 +143,7 @@
     ---------
 	- GetAbsolutePath		- Gets the absolute path of a file
 	- GetOSVersion			- Gets the current OS version
+        - HasSudoAccess                 - Returns true if probability is high
 
 	Apache				- Functions related to Apache
 	------
@@ -72,6 +182,12 @@
 	    - VerifyFiles		- Verifies that all of the files in
 					  the source also exist in the
 					  destination
+            - FindPackageManager        - Attempts to discover the system's
+                                          package manager
+          * - InstallPackages           - Attempts to install packages with
+                                          the system's package manager
+          * - RemovePackages            - Attempts to remove packages with
+                                          the system's package manager
 
 	ls				- Functions that assist with ls
 	--
@@ -98,6 +214,10 @@
 	    - FatalLog			- Prints a timestamped message to
 					  stderr and exits the script with
                                           status 1
+        Rkt                             - Functions related to Rocket
+        ---                               containers
+            - FindRktImage              - Attempts to find a specific rkt
+                                          image by name or sha512 ID
 
 	String				- Functions for string manipulation
 	------
@@ -105,6 +225,9 @@
             - EatWhite                  - Removes all leading/trailing
                                           whitespace characters
 	    - StrToLower		- Converts a string to lowercase
+
+
+    * - Requires 'sudo' access to function properly
 
 ==============================================================================
 
