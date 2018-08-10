@@ -202,6 +202,8 @@
 
 	Output				- Functions related to displaying
 	------				  output
+            - PrintVars                 - Displays the name and value of the
+                                          variables provided
 	    - Error			- Prints a message to stderr
 	    - Fatal			- Prints a message to stderr and
 					  exits the script with status 1
