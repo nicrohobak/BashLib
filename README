@@ -218,8 +218,16 @@
                                           status 1
         Rkt                             - Functions related to Rocket
         ---                               containers
-            - FindRktImage              - Attempts to find a specific rkt
-                                          image by name or sha512 ID
+            - RktFindImage              - Attempts to find a specific rkt
+                                          image by name or sha512 ID, helpful
+                                          when building images based upon
+                                          other images in your local store
+            - RktFindImageID            - Attempts to find an image in the
+                                          local store by name
+            - RktFindPreparedImage      - Attempts to find a prepared image
+                                          among the local pods, by name or ID
+            - RktFindRunningImage       - Attempts to find a running image
+                                          among the local pods, by name or ID
 
 	String				- Functions for string manipulation
 	------
