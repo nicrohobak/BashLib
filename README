@@ -216,12 +216,32 @@
 	    - FatalLog			- Prints a timestamped message to
 					  stderr and exits the script with
                                           status 1
+
         Rkt                             - Functions related to Rocket
         ---                               containers
             - RktFindImage              - Attempts to find a specific rkt
                                           image by name or sha512 ID, helpful
                                           when building images based upon
                                           other images in your local store
+            - RktBeginImage             - Initializes a new container image
+            - RktSetLabel               - Sets a container image label on the
+                                          image in progress
+            - RktRemoveLabel            - Removes a container image label on
+                                          the image in progress
+            - RktCopyDNS                - Copies the system DNS information
+                                        - into the new image in progress
+            - RktCheckForPkgMgr         - Checks to see if a specific package
+                                          manager has commands available
+            - RktInstallPkgs            - Updates the image's package manager
+                                          then installs the requested packages
+            - RktSetEntry               - Sets the container entry point for
+                                          the image in progress
+            - RktLaunchShell            - Launches a shell inside the image in
+                                          progress
+            - RktWriteImage             - Saves the image in progress to an
+                                          rkt .aci image
+            - RktEndImage               - Finalizes the container image in
+                                          progress
             - RktFindImageID            - Attempts to find an image in the
                                           local store by name
             - RktFindPreparedImage      - Attempts to find a prepared image
