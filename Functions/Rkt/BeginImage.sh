@@ -37,7 +37,7 @@ function RktBeginImage
 	${ACBUILD} begin "${IMAGE_ID}" --insecure	|| Fatal "'acbuild begin' failed.  (Image ID: ${IMAGE_ID})"
 
 	# Set our working directory at the container root
-	${ACBUILD} set-working-directory			|| Fatal "Failed to set the container's working directory."
+	${ACBUILD} set-working-directory "/"		|| Fatal "Failed to set the container's working directory."
 
 	return 0
 }
