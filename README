@@ -144,6 +144,7 @@
 	- GetAbsolutePath		- Gets the absolute path of a file
 	- GetOSVersion			- Gets the current OS version
         - HasSudoAccess                 - Returns true if probability is high
+        - FreeMemCache                  - Attempts to free RAM and swap caches
 
 	Apache				- Functions related to Apache
 	------
