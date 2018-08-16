@@ -228,8 +228,10 @@
                                           image in progress
             - RktRemoveLabel            - Removes a container image label on
                                           the image in progress
-            - RktCopyDNS                - Copies the system DNS information
-                                        - into the new image in progress
+            - RktCopyDNS                - Copies a specified /etc/resolv.conf
+                                          into the new image in progress
+            - RktCopyHosts              - Copies a specified /etc/hosts into
+                                          the new image in progress
             - RktCheckForPkgMgr         - Checks to see if a specific package
                                           manager has commands available
             - RktInstallPkgs            - Updates the image's package manager
