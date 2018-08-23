@@ -254,6 +254,7 @@
 
 	String				- Functions for string manipulation
 	------
+            - IsNumber                  - Returns '0' if the input is numeric
 	    - Append			- Appends new content to a variable
             - EatWhite                  - Removes all leading/trailing
                                           whitespace characters
