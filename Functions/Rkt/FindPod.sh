@@ -16,7 +16,7 @@ function RktFindPod
 
 	local HEADERS="IMAGE NAME"
 
-	local FOUND_ID=$( ${RKT} list | grep -v "${HEADERS}" | grep -B 1 "$(${RKT} list | grep -v "${HEADERS}" | grep -A 1 "${STATE}" | grep "${IMAGE}" | awk '{ print $1; }')" | grep "${STATE}" | awk '{ print $1; }' )
+	local FOUND_ID=$( ${RKT} list | grep -v "${HEADERS}" | grep -B 1 "$(${RKT} list | grep -v "${HEADERS}" | grep -A 1 -e "${STATE}" | grep -e "${IMAGE}" | awk '{ print $1; }')" | grep -e "${STATE}" | awk '{ print $1; }' )
 
 	if [ "${FOUND_ID}" = "" ]; then
 		Error "RktFindPod: Image not found.  (${IMAGE})"

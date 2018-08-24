@@ -10,13 +10,14 @@
 # Output:   If found, the sha512 short ID for the image
 function RktFindImage
 {
-	if [ "${1}" = "" ]; then
+	local IMAGE_NAME="${1}"
+
+	if [ "${IMAGE_NAME}" = "" ]; then
 		Error "RktFindImage: No image name provided."
 		return 1
 	fi
 
-	local IMAGE_NAME="${1}"
-	local FOUND_ID=$( ${RKT} image list | grep "${IMAGE_NAME}" | awk '{ print $1; }' )
+	local FOUND_ID=$( ${RKT} image list | grep -e "${IMAGE}" | awk '{ print $1; }' )
 
 	if [ "${FOUND_ID}" = "" ]; then
 		Error "RktFindImage: Image not found.  (${IMAGE_NAME})"
