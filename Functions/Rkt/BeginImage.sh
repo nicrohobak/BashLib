@@ -25,7 +25,7 @@ function RktBeginImage
 	local IMAGE_ID=""
 	if [ "${BASE_CONTAINER_IMAGE}" != "" ]; then
 		# Find the image in the local store
-		IMAGE_ID=$( RktFindImage "${BASE_CONTAINER_IMAGE}" )
+		IMAGE_ID=$( RktFindImageHash "${BASE_CONTAINER_IMAGE}" )
 
 		if [ "${IMAGE_ID}" = "" ] || [ "$(echo "${IMAGE_ID}" | grep "Image not found.")" != "" ]; then
 			Error "Rkt_BeginImage: Failed to find the base image '${BASE_CONTAINER_IMAGE}'.  (Did you fetch it yet?)"
