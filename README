@@ -218,9 +218,9 @@
 					  stderr and exits the script with
                                           status 1
 
-        Rkt                             - Functions related to Rocket
+        Rkt                             - Functions related to Rocket (rkt)
         ---                               containers
-            - RktFindImage              - Attempts to find a specific rkt
+            - RktFindImageHash          - Attempts to find a specific rkt
                                           image by name or sha512 ID, helpful
                                           when building images based upon
                                           other images in your local store
@@ -245,12 +245,11 @@
                                           rkt .aci image
             - RktEndImage               - Finalizes the container image in
                                           progress
-            - RktFindImageID            - Attempts to find an image in the
+            - RktFindImage              - Attempts to find an image in the
                                           local store by name
-            - RktFindPreparedImage      - Attempts to find a prepared image
-                                          among the local pods, by name or ID
-            - RktFindRunningImage       - Attempts to find a running image
-                                          among the local pods, by name or ID
+            - RktFindPod                - Attempts to find a pod of an
+                                          optionally specified state, by name
+                                          or ID
 
 	String				- Functions for string manipulation
 	------

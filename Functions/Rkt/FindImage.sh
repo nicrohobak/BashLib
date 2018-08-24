@@ -7,7 +7,7 @@
 
 # Function: RktFindImage
 # Params:   ${1}
-# Output:   If found, the full sha512 hash as exists on disk
+# Output:   If found, the sha512 short ID for the image
 function RktFindImage
 {
 	if [ "${1}" = "" ]; then
@@ -16,17 +16,14 @@ function RktFindImage
 	fi
 
 	local IMAGE_NAME="${1}"
-	local FOUND_ID=$( RktFindImageID "${IMAGE_NAME}" 2>&1 )
+	local FOUND_ID=$( ${RKT} image list | grep "${IMAGE_NAME}" | awk '{ print $1; }' )
 
-	if [ "$(echo "${FOUND_ID}" | grep "Image not found.")" != "" ]; then
+	if [ "${FOUND_ID}" = "" ]; then
 		Error "RktFindImage: Image not found.  (${IMAGE_NAME})"
 		return 1
 	fi
 
-	local RKT_IMAGE_PATH="${RKT_DATA_DIR}/cas/blob/sha512"
-	local SHA512_PREFIX="${FOUND_ID:7:2}"
-
-	Print "$( ls -w 1 ${RKT_IMAGE_PATH}/${SHA512_PREFIX}/${FOUND_ID}* | awk '{ print $1; }' )"
+	Print "${FOUND_ID}"
 	return 0
 }
 
