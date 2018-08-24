@@ -6,22 +6,20 @@
 
 
 # Function: RktFindPod
-# Params:   ${1} - Image keyword
+# Params:   ${1} - Image keyword (if none is provided, all are returned)
 #			${2} - Image state (prepared/running/exited/any/etc.  If none is provided, 'any' is implied.)
 # Output:   If found, the shorthand UUID for the prepared pod
 function RktFindPod
 {
-	if [ "${1}" = "" ]; then
-		Error "RktFindPod: No image name provided."
-		return 1
-	fi
-
 	local IMAGE="${1}"
 	local STATE="${2}"
-	local FOUND_ID=$( ${RKT} list | grep -B 1 "$(${RKT} list | grep -A 1 "${STATE}" | grep "${IMAGE}" | awk '{ print $1; }')" | grep "${STATE}" | awk '{ print $1; }' )
+
+	local HEADERS="IMAGE NAME"
+
+	local FOUND_ID=$( ${RKT} list | grep -v "${HEADERS}" | grep -B 1 "$(${RKT} list | grep -v "${HEADERS}" | grep -A 1 "${STATE}" | grep "${IMAGE}" | awk '{ print $1; }')" | grep "${STATE}" | awk '{ print $1; }' )
 
 	if [ "${FOUND_ID}" = "" ]; then
-		Error "RktFindPod: Image not found.  (${IMAGE_NAME})"
+		Error "RktFindPod: Image not found.  (${IMAGE})"
 		return 1
 	fi
 
