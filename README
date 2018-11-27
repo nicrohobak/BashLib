@@ -250,6 +250,9 @@
             - RktFindPod                - Attempts to find a pod of an
                                           optionally specified state, by name
                                           or ID
+            - RktUpdateImages           - Fetches/updates images, but also adds
+                                          group read permission to allow for
+                                          greater non-root usage options
 
 	String				- Functions for string manipulation
 	------
