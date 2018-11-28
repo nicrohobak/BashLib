@@ -26,7 +26,7 @@ function RktUpdateImages
 		Print "Fetching '${IMAGE}'..."
 
 		# Explictly allow insecure images for wider compatibility
-		${RKT} --insecure-options=image fetch "${IMAGE}"
+		${RKT} fetch "${IMAGE}"
 
 		if [ "${?}" != "0" ]; then
 			Error "RktUpdateImages: Failed to fetch '${IMAGE}'."

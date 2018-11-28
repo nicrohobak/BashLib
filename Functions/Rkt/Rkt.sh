@@ -11,7 +11,7 @@ RKT_IMAGE_PATH="${RKT_DATA_DIR}/cas/blob/sha512"        # rkt fetch storage loca
 
 # Use these variables to provide your own custom options to these commands
 
-RKT="rkt --dir=${RKT_DATA_DIR}"
+RKT="rkt --insecure-options=image --dir=${RKT_DATA_DIR}"
 
 ACBUILD="acbuild --debug"
 
